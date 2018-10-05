@@ -14,37 +14,33 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Start Class
-if ( ! class_exists( 'WPEX_Theme_Options' ) ) {
+if ( ! class_exists( 'ELMT_set_theme_options' ) ) {
 
-	class WPEX_Theme_Options {
+	class ELMT_set_theme_options {
 
 		/**
 		 * Start things up
-		 *
 		 * @since 1.0.0
 		 */
 		public function __construct() {
 
 			// We only need to register the admin panel on the back-end
-			if ( is_admin() ) {
-				add_action( 'admin_menu', array( 'WPEX_Theme_Options', 'add_admin_menu' ) );
-				add_action( 'admin_init', array( 'WPEX_Theme_Options', 'register_settings' ) );
+			if ( is_admin() ) {	
+				add_action( 'admin_init', array( 'ELMT_set_theme_options', 'register_settings' ) );
 			}
 
 		}
 
 		/**
 		 * Returns all theme options
-		 *
 		 * @since 1.0.0
 		 */
 		public static function get_theme_options() {
-			return get_option( 'theme_options' );
+			return get_option( 'ELMT_theme_options' );
 		}
 
 		/**
 		 * Returns single theme option
-		 *
 		 * @since 1.0.0
 		 */
 		public static function get_theme_option( $id ) {
@@ -52,21 +48,6 @@ if ( ! class_exists( 'WPEX_Theme_Options' ) ) {
 			if ( isset( $options[$id] ) ) {
 				return $options[$id];
 			}
-		}
-
-		/**
-		 * Add sub menu page
-		 *
-		 * @since 1.0.0
-		 */
-		public static function add_admin_menu() {
-			add_menu_page(
-				esc_html__( 'Theme Settings', 'text-domain' ),
-				esc_html__( 'Theme Settings', 'text-domain' ),
-				'manage_options',
-				'theme-settings',
-				array( 'WPEX_Theme_Options', 'create_admin_page' )
-			);
 		}
 
 		/**
@@ -78,12 +59,11 @@ if ( ! class_exists( 'WPEX_Theme_Options' ) ) {
 		 * @since 1.0.0
 		 */
 		public static function register_settings() {
-			register_setting( 'theme_options', 'theme_options', array( 'WPEX_Theme_Options', 'sanitize' ) );
+			register_setting( 'ELMT_theme_options', 'ELMT_theme_options', array( 'ELMT_set_theme_options', 'sanitize' ) );
 		}
 
 		/**
 		 * Sanitization callback
-		 *
 		 * @since 1.0.0
 		 */
 		public static function sanitize( $options ) {
@@ -99,10 +79,10 @@ if ( ! class_exists( 'WPEX_Theme_Options' ) ) {
 				}
 
 				// Input
-				if ( ! empty( $options['input_example'] ) ) {
-					$options['input_example'] = sanitize_text_field( $options['input_example'] );
+				if ( ! empty( $options['ELMT_google_analytics'] ) ) {
+					$options['ELMT_google_analytics'] = sanitize_text_field( $options['ELMT_google_analytics'] );
 				} else {
-					unset( $options['input_example'] ); // Remove from options if empty
+					unset( $options['ELMT_google_analytics'] ); // Remove from options if empty
 				}
 
 				// Select
@@ -119,10 +99,9 @@ if ( ! class_exists( 'WPEX_Theme_Options' ) ) {
 
 		/**
 		 * Settings page output
-		 *
 		 * @since 1.0.0
 		 */
-		public static function create_admin_page() { ?>
+		public static function ELMT_set_theme_settings() { ?>
 
 			<div class="wrap">
 
@@ -130,25 +109,36 @@ if ( ! class_exists( 'WPEX_Theme_Options' ) ) {
 
 				<form method="post" action="options.php">
 
-					<?php settings_fields( 'theme_options' ); ?>
+					<?php settings_fields( 'ELMT_theme_options' ); ?>
 
 					<table class="form-table wpex-custom-admin-login-table">
 
-						<?php // Checkbox example ?>
+						<?php // Disable admin-bar ?>
 						<tr valign="top">
-							<th scope="row"><?php esc_html_e( 'Checkbox Example', 'text-domain' ); ?></th>
+							<th scope="row"><?php esc_html_e( 'Disable admin-bar', 'text-domain' ); ?></th>
 							<td>
-								<?php $value = self::get_theme_option( 'checkbox_example' ); ?>
-								<input type="checkbox" name="theme_options[checkbox_example]" <?php checked( $value, 'on' ); ?>> <?php esc_html_e( 'Checkbox example description.', 'text-domain' ); ?>
+								<?php $value = self::get_theme_option( 'ELMT_disable_admin_bar' ); ?>
+								<input type="checkbox" name="ELMT_theme_options[ELMT_disable_admin_bar]" <?php checked( $value, 'on' ); ?>> <?php esc_html_e( 'Check to disable frontend admin-bar', 'text-domain' ); ?>
 							</td>
 						</tr>
 
-						<?php // Text input example ?>
+						<?php // Google Analytics (text input) ?>
 						<tr valign="top">
-							<th scope="row"><?php esc_html_e( 'Input Example', 'text-domain' ); ?></th>
+							<th scope="row"><?php esc_html_e( 'Google Analytics', 'text-domain' ); ?></th>
 							<td>
-								<?php $value = self::get_theme_option( 'input_example' ); ?>
-								<input type="text" name="theme_options[input_example]" value="<?php echo esc_attr( $value ); ?>">
+								<?php $value = self::get_theme_option( 'ELMT_google_analytics' ); ?>
+								<input type="text" name="ELMT_theme_options[ELMT_google_analytics]" value="<?php echo esc_attr( $value ); ?>">
+								<p>Add your Google Analytics code</p>
+							</td>
+						</tr>
+
+						<?php // Facebook Pixel (text input) ?>
+						<tr valign="top">
+							<th scope="row"><?php esc_html_e( 'Facebook Pixel', 'text-domain' ); ?></th>
+							<td>
+								<?php $value = self::get_theme_option( 'ELMT_facebook_pixel' ); ?>
+								<input type="text" name="ELMT_theme_options[ELMT_facebook_pixel]" value="<?php echo esc_attr( $value ); ?>">
+								<p>Add your Facebook Pixel code</p>
 							</td>
 						</tr>
 
@@ -157,7 +147,7 @@ if ( ! class_exists( 'WPEX_Theme_Options' ) ) {
 							<th scope="row"><?php esc_html_e( 'Select Example', 'text-domain' ); ?></th>
 							<td>
 								<?php $value = self::get_theme_option( 'select_example' ); ?>
-								<select name="theme_options[select_example]">
+								<select name="ELMT_theme_options[select_example]">
 									<?php
 									$options = array(
 										'1' => esc_html__( 'Option 1', 'text-domain' ),
@@ -184,9 +174,4 @@ if ( ! class_exists( 'WPEX_Theme_Options' ) ) {
 
 	}
 }
-new WPEX_Theme_Options();
-
-// Helper function to use in your theme to return a theme option value
-function myprefix_get_theme_option( $id = '' ) {
-	return WPEX_Theme_Options::get_theme_option( $id );
-}
+new ELMT_set_theme_options();

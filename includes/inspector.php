@@ -8,10 +8,15 @@
  * @since 1.0.0
  */
 
-function elementiu_admin_menu_function() { 
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+function ELMT_set_theme_inspector() { 
 
     /**
-     * Foreach defined elementor templates
+     * Foreach elementor exists templates
      * @since 1.0.0
      */
    $elementor_templates = get_posts (         
@@ -41,7 +46,7 @@ function elementiu_admin_menu_function() {
     }
 
     /**
-     * All static templates types
+     * Defined all static template types
      * @since 1.0.0
      */
     $theme_templates = [        

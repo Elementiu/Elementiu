@@ -8,10 +8,15 @@
  * @since 1.0.0
  */
 
-function add_admin_menu() {
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+function ELMT_add_admin_menu() {
 
 	/**
-     * Render main-menu
+     * Render Elementiu main-menu
      * @since 1.0.0
      */
 	add_menu_page ( 
@@ -26,7 +31,20 @@ function add_admin_menu() {
 	);
 
 	/**
-     * Render submenu
+     * Render Dashboard submenu
+     * @since 1.0.0
+     */
+	add_submenu_page ( 
+		$parent_slug   = 'elementiu', 
+		$page_title    = 'Dashboard', 
+		$menu_title    = 'Dashboard', 
+		$capability    = 'manage_options', 
+		$menu_slug     = 'dashboard', 
+		$function      = '' // Call to function 
+	);
+
+	/**
+     * Render Theme inspector submenu
      * @since 1.0.0
      */
 	add_submenu_page ( 
@@ -35,11 +53,24 @@ function add_admin_menu() {
 		$menu_title    = 'Theme inspector', 
 		$capability    = 'manage_options', 
 		$menu_slug     = 'theme-inspector', 
-		$function      = 'elementiu_admin_menu_function' 
+		$function      = 'ELMT_set_theme_inspector' // Call to function 
 	);
 
 	/**
-     * Render submenu
+     * Render Performance submenu
+     * @since 1.0.0
+     */
+	add_submenu_page ( 
+		$parent_slug   = 'elementiu', 
+		$page_title    = 'Performance', 
+		$menu_title    = 'Performance', 
+		$capability    = 'manage_options', 
+		$menu_slug     = 'performance', 
+		$function      = '' // Call to function  
+	);
+
+	/**
+     * Render Settings submenu
      * @since 1.0.0
      */
 	add_submenu_page ( 
@@ -48,11 +79,11 @@ function add_admin_menu() {
 		$menu_title    = 'Settings', 
 		$capability    = 'manage_options', 
 		$menu_slug     = 'theme-settings', 
-		$function      = 'set_theme_settings' 
+		$function      = array( 'ELMT_set_theme_options', 'ELMT_set_theme_settings' ) // Call to functions 
 	);
 
 	remove_submenu_page( 'elementiu', 'elementiu' );
 
 } 
 
-add_action( 'admin_menu', 'add_admin_menu');
+add_action( 'admin_menu', 'ELMT_add_admin_menu');

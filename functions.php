@@ -61,6 +61,9 @@ remove_action( 'admin_print_styles', 'print_emoji_styles' );
 
 include_once( 'includes/admin-menu.php' );
 include_once( 'includes/performance.php' );
-include_once( 'includes/theme-inspector.php' );
+include_once( 'includes/inspector.php' );
 include_once( 'includes/settings.php' );
 
+include_once( 'includes/frontend/analytics.php' );
+include_once( 'includes/frontend/pixel.php' );
+include_once( 'includes/frontend/admin-bar.php' );

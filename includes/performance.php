@@ -8,15 +8,19 @@
  * @since 1.0.0
  */
 
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Remove query strings from static resources
  * @since 1.0.0
  */
-function remove_query_strings( $src ) {     
+function ELMT_remove_query_strings( $src ) {     
     $parts = explode( '?', $src ); 	
     return $parts[0];     
 } 
     
-add_filter( 'script_loader_src', 'remove_query_strings', 15, 1 ); 
-add_filter( 'style_loader_src', 'remove_query_strings', 15, 1 );
+add_filter( 'script_loader_src', 'ELMT_remove_query_strings', 15, 1 ); 
+add_filter( 'style_loader_src', 'ELMT_remove_query_strings', 15, 1 );

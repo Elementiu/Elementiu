@@ -9,7 +9,7 @@ gulp.task('browser-sync', () => {
 
     gulp.watch('./style.css').on('change', browserSync.reload);
     gulp.watch('./*.php').on('change', browserSync.reload);
-    gulp.watch('./includes/*.php').on('change', browserSync.reload);
+    gulp.watch('./includes/**/*.php').on('change', browserSync.reload);
     gulp.watch('./template-parts/*.php').on('change', browserSync.reload);
 });
 
