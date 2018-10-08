@@ -1,5 +1,8 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) { exit; }
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 // Set up theme support
 function elementor_hello_theme_setup() {
@@ -59,11 +62,21 @@ remove_action( 'admin_print_styles', 'print_emoji_styles' );
 
 // Include files
 
-include_once( 'includes/admin-menu.php' );
-include_once( 'includes/performance.php' );
-include_once( 'includes/inspector.php' );
-include_once( 'includes/settings.php' );
 
-include_once( 'includes/frontend/analytics.php' );
-include_once( 'includes/frontend/pixel.php' );
-include_once( 'includes/frontend/admin-bar.php' );
+if ( is_admin() ) {
+	
+	include_once( 'includes/core/class-add-menu.php' );
+	include_once( 'includes/core/class-inspector.php' );
+	include_once( 'includes/core/class-theme-options.php' );
+
+}
+
+if ( ! is_admin() ) {
+
+include_once( 'includes/public/performance.php' );
+include_once( 'includes/public/analytics.php' );
+include_once( 'includes/public/pixel.php' );
+include_once( 'includes/public/adminbar.php' );
+include_once( 'includes/public/schema.php' );
+
+}

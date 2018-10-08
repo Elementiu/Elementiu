@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 1.0.0
  */
 function ELMT_remove_query_strings( $src ) {     
-    $parts = explode( '?', $src ); 	
+    $parts = explode( '?ver', $src ); 	
     return $parts[0];     
 } 
     

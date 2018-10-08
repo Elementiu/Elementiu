@@ -1,9 +1,9 @@
 <?php
 /**
- * Elementui "Settings" page for WordPress Dashboard.
+ * Elementiu "Theme Options" page for WordPress Dashboard.
  *
- * Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, iusto. Blanditiis optio laborum temporibus.
- * Elementui "Settings" page for WordPress dashboard.
+ * Elementui Theme Options page is responsible for creating and displaying the menus and submenus in the wp-admin navigation bar.
+ * Elementiu "Theme Options" page for WordPress dashboard.
  *
  * @since 1.0.0
  */
@@ -13,20 +13,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-// Start Class
-if ( ! class_exists( 'ELMT_set_theme_options' ) ) {
+/**
+ * Star class
+ * @since 1.0.0
+ */
+if ( ! class_exists( 'ELMT_theme_options' ) ) {
 
-	class ELMT_set_theme_options {
+	class ELMT_theme_options {
 
 		/**
-		 * Start things up
+		 * Define the construct function
 		 * @since 1.0.0
 		 */
 		public function __construct() {
 
-			// We only need to register the admin panel on the back-end
+			// Call to admin page render function and register new settings 
 			if ( is_admin() ) {	
-				add_action( 'admin_init', array( 'ELMT_set_theme_options', 'register_settings' ) );
+				add_action( 'admin_init', array( 'ELMT_theme_options', 'register_settings' ) );
 			}
 
 		}
@@ -59,7 +62,7 @@ if ( ! class_exists( 'ELMT_set_theme_options' ) ) {
 		 * @since 1.0.0
 		 */
 		public static function register_settings() {
-			register_setting( 'ELMT_theme_options', 'ELMT_theme_options', array( 'ELMT_set_theme_options', 'sanitize' ) );
+			register_setting( 'ELMT_theme_options', 'ELMT_theme_options', array( 'ELMT_theme_options', 'sanitize' ) );
 		}
 
 		/**
@@ -101,7 +104,7 @@ if ( ! class_exists( 'ELMT_set_theme_options' ) ) {
 		 * Settings page output
 		 * @since 1.0.0
 		 */
-		public static function ELMT_set_theme_settings() { ?>
+		public static function ELMT_theme_options_view() { ?>
 
 			<div class="wrap">
 
@@ -174,4 +177,4 @@ if ( ! class_exists( 'ELMT_set_theme_options' ) ) {
 
 	}
 }
-new ELMT_set_theme_options();
+new ELMT_theme_options();

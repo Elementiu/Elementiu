@@ -8,6 +8,11 @@
  * @since 1.0.0
  */
 
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 function ELMT_google_analytics_code() {
 
 	$options = get_option( 'ELMT_theme_options' );

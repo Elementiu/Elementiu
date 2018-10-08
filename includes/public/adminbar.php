@@ -8,6 +8,11 @@
  * @since 1.0.0
  */
 
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 function ELMT_disable_frontend_adminbar() {
 
 	$options = get_option( 'ELMT_theme_options' );
